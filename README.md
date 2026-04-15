@@ -12,7 +12,7 @@ AI-powered document intelligence platform for uploading files/links, extracting 
 - 🧠 Dual LLM mode: local (Ollama) or API providers (Gemini/OpenAI)
 
 ## 🏗️ Tech Stack
-
+ 
 ### Frontend
 - React 18 + TypeScript + Vite
 - Tailwind CSS + shadcn/ui (Radix primitives)
