@@ -4,12 +4,40 @@ AI-powered Financial Document Intelligence Platform for analyzing financial stat
 
 ## ✨ Features
 
-- 📄 Upload and process multiple formats: PDF, CSV, XLS/XLSX, DOCX, text links, and images
-- 🔍 AI summarization with document typing, key points, entities, and question extraction
-- 💬 Document Chat with retrieval (RAG) + caching and source-aware responses
-- 📊 Dataset profiling for tabular files with stats, quality indicators, and charts
-- 🧭 View workflows for native/document rendering and highlight-driven navigation
-- 🧠 Dual LLM mode: local (Ollama) or API providers (Gemini/OpenAI)
+- 📈 Analyze Balance Sheets, Income Statements and Cash Flow Statements
+- 💰 AI-powered Expense and Revenue Analysis
+- 🏦 Intelligent Bank Statement Understanding
+- 📊 Financial Excel & CSV Analytics with automatic KPI generation
+- 📑 AI Summary of Annual Reports, SEC filings and financial PDFs
+- 📉 Portfolio Performance Analysis and Investment Insights
+- 📌 Financial Entity Extraction (Companies, Stocks, Amounts, Dates)
+- 💬 Ask Questions about uploaded financial documents using RAG
+- 📈 Automatic trend visualization and financial dashboards
+- 🔍 Multi-document comparison for quarterly reports
+- 🧠 Supports Gemini, OpenAI and Local LLMs
+
+## 💼 Financial Use Cases
+
+FinSighter AI can analyze:
+
+- Annual Reports
+- Quarterly Earnings Reports
+- Income Statements
+- Balance Sheets
+- Cash Flow Statements
+- Profit & Loss Statements
+- Tax Documents
+- GST Reports
+- Expense Reports
+- Payroll Documents
+- Portfolio Statements
+- Mutual Fund Statements
+- Stock Market Research Reports
+- Financial Excel Sheets
+- Budget Planning Documents
+- Bank Statements
+- Audit Reports
+- Investment Research PDFs
 
 ## 🏗️ Tech Stack
  
