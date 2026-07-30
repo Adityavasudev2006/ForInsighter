@@ -1,4 +1,4 @@
-# ForInsighter 🚀
+# ForInsighter AI 🚀
 
 AI-powered Financial Document Intelligence Platform for analyzing financial statements, balance sheets, investment portfolios, bank statements, invoices, expense reports, stock market reports, tax documents, and Excel-based financial datasets using LLMs and Retrieval-Augmented Generation (RAG).
 
