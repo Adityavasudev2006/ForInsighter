@@ -8,6 +8,7 @@ interface AppContextType {
   setApiKey: (key: string) => void;
   setOllamaBaseUrl: (url: string) => void;
   setOllamaModel: (model: string) => void;
+  logout: () => void;
   documents: AppDocument[];
   setDocuments: React.Dispatch<React.SetStateAction<AppDocument[]>>;
   addDocuments: (docs: AppDocument[]) => void;
@@ -33,6 +34,22 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const setOllamaBaseUrl = (url: string) => setConfig((c) => ({ ...c, ollamaBaseUrl: url }));
   const setOllamaModel = (model: string) => setConfig((c) => ({ ...c, ollamaModel: model }));
 
+  const logout = useCallback(() => {
+    localStorage.removeItem("ai_mode");
+    localStorage.removeItem("api_provider");
+    localStorage.removeItem("api_key");
+    localStorage.removeItem("ollama_base_url");
+    localStorage.removeItem("ollama_model");
+    setConfig({
+      mode: "local",
+      apiProvider: undefined,
+      apiKey: undefined,
+      ollamaBaseUrl: "http://localhost:11434",
+      ollamaModel: "llama3.2",
+    });
+    setDocuments([]);
+  }, []);
+
   const addDocuments = useCallback((docs: AppDocument[]) => {
     setDocuments((prev) => [...prev, ...docs]);
   }, []);
@@ -46,13 +63,15 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     localStorage.setItem("ai_mode", config.mode);
     if (config.apiProvider) localStorage.setItem("api_provider", config.apiProvider);
+    else localStorage.removeItem("api_provider");
     if (config.apiKey) localStorage.setItem("api_key", config.apiKey);
+    else localStorage.removeItem("api_key");
     if (config.ollamaBaseUrl) localStorage.setItem("ollama_base_url", config.ollamaBaseUrl);
     if (config.ollamaModel) localStorage.setItem("ollama_model", config.ollamaModel);
   }, [config.mode, config.apiProvider, config.apiKey, config.ollamaBaseUrl, config.ollamaModel]);
 
   return (
-    <AppContext.Provider value={{ config, setMode, setApiProvider, setApiKey, setOllamaBaseUrl, setOllamaModel, documents, setDocuments, addDocuments, updateDocument, isConfigured }}>
+    <AppContext.Provider value={{ config, setMode, setApiProvider, setApiKey, setOllamaBaseUrl, setOllamaModel, logout, documents, setDocuments, addDocuments, updateDocument, isConfigured }}>
       {children}
     </AppContext.Provider>
   );

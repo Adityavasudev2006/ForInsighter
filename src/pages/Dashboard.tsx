@@ -5,11 +5,11 @@ import { useApp } from "@/context/AppContext";
 import { StatusChip } from "@/components/StatusChip";
 import { DocTypeBadge } from "@/components/DocTypeBadge";
 import { BrandMark } from "@/components/BrandMark";
+import { AppSidebar } from "@/components/AppSidebar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Card, CardContent } from "@/components/ui/card";
-import { Upload, Search, FileUp, PlayCircle, Moon, Sun, ArrowLeft, Trash2 } from "lucide-react";
+import { Upload, Search, FileUp, PlayCircle, Moon, Sun, Trash2 } from "lucide-react";
 import { toggleTheme } from "@/lib/theme";
 import { toast } from "sonner";
 import { deleteDocument, getDocuments, search as searchApi, startBatch, uploadFiles, uploadLink } from "@/api/client";
@@ -132,53 +132,9 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-background flex">
-      {/* Sidebar */}
-      <aside className="w-72 border-r border-border bg-card flex flex-col">
-        <div className="p-4 border-b border-border flex items-center gap-2">
-          <Button variant="ghost" size="icon" onClick={() => navigate("/")}>
-            <ArrowLeft className="h-4 w-4" />
-          </Button>
-          <h2 className="font-semibold text-foreground text-sm">Documents</h2>
-          <span className="ml-auto text-xs text-muted-foreground">{documents.length}</span>
-        </div>
-        <ScrollArea className="flex-1">
-          <div className="p-2 space-y-1">
-            {documents.map((doc) => (
-              <div key={doc.id} className="w-full p-3 rounded-lg hover:bg-muted/50 transition-colors space-y-1.5">
-                <div className="flex items-start gap-2">
-                  <button
-                    onClick={() => doc.status === "done" && navigate(`/document/${doc.id}`)}
-                    className="flex-1 text-left"
-                  >
-                    <p className="text-sm font-medium text-foreground truncate">{doc.filename}</p>
-                  </button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-7 w-7"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDeleteDocument(doc.id);
-                    }}
-                  >
-                    <Trash2 className="h-4 w-4 text-destructive" />
-                  </Button>
-                </div>
-                <div className="flex items-center gap-2">
-                  <DocTypeBadge type={doc.file_type} />
-                  <StatusChip status={doc.status} />
-                </div>
-                {doc.status === "failed" && doc.processing_error && (
-                  <p className="text-[11px] text-destructive line-clamp-2">{doc.processing_error}</p>
-                )}
-              </div>
-            ))}
-          </div>
-        </ScrollArea>
-      </aside>
+      <AppSidebar />
 
-      {/* Main */}
-      <main className="flex-1 flex flex-col">
+      <main className="flex-1 flex flex-col min-w-0">
         <header className="h-14 border-b border-border flex items-center px-6 gap-4">
           <div className="flex items-center gap-2">
             <BrandMark className="h-6 w-6 text-foreground" />
@@ -215,7 +171,6 @@ export default function Dashboard() {
         </header>
 
         <div className="flex-1 p-6 space-y-6 overflow-auto">
-          {/* Upload zone */}
           <Card
             {...getRootProps()}
             className={`border-2 border-dashed cursor-pointer transition-all ${isDragActive ? "border-primary bg-primary/5" : "border-border hover:border-primary/40"}`}
@@ -266,7 +221,6 @@ export default function Dashboard() {
             </Button>
           </div>
 
-          {/* Quick list */}
           {filtered.length > 0 && (
             <div className="grid gap-2">
               {filtered.map((doc) => (

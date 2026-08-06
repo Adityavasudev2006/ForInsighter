@@ -7,31 +7,44 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Frontend build / deps
+node_modules/
+dist/
+dist-ssr/
+coverage/
 *.local
+
+# Environment & secrets
 .env
 .env.*
 !.env.example
+*.pem
+*.key
+credentials.json
 
-# Python / backend artifacts
+# Python bytecode & tooling
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
+*.so
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
 .coverage
 htmlcov/
+*.egg-info/
+.eggs/
+build/
+pip-wheel-metadata/
 
 # Virtual environments
 venv/
 .venv/
 backend/venv/
+env/
+ENV/
 
-# Runtime and generated backend data
+# Runtime and generated backend data (never commit)
 backend/uploads/
 backend/chroma_db/
 backend/docplatform.db
@@ -39,16 +52,45 @@ backend/docplatform.db-*
 backend/*.db
 backend/*.sqlite
 backend/*.sqlite3
-backend/uploads/derivatives/
+**/chroma_db/
+**/uploads/
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-wal
+*.db-shm
 
-# Build outputs
-coverage/
+# ML / embedding model caches (sentence-transformers, Hugging Face, etc.)
+.cache/
+.huggingface/
+.torch/
+*.safetensors
+*.onnx
+*.pt
+*.pth
+*.bin
+
+# Local runtime logs from start.sh
+.run-logs/
+
+# Celery / Redis runtime artifacts
+celerybeat-schedule
+celerybeat.pid
+dump.rdb
+
+# Docker local volumes (if bind-mounted into repo)
+redis_data/
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
+*.swp
+*.swo
+*~
 .DS_Store
+Thumbs.db
 *.suo
 *.ntvs*
 *.njsproj

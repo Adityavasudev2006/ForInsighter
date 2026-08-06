@@ -1,7 +1,63 @@
-cd backend
-python -m venv venv 
-source venv/bin/activate  
+# ---------- First Time Setup ----------
+
+npm install
+
+python3.11 -m venv backend/venv
+source backend/venv/bin/activate
+
 pip install -r requirements.txt
-cp .env.example .env       
+
+#Needed in Linux to sign in to the docker
+sudo usermod -aG docker "$USER"
+
+#This needs to be run to start all the processe : npm run, celery, redis, backend etc..
+bash start.sh
+
+
+# Optional (Local LLM)
+# curl -fsSL https://ollama.ai/install.sh | sh
+# ollama pull llama3.2
+
+# ---------- Run the App (NO need to run these : These are run by start.sh)----------
+
+# Terminal 1 - Redis
+cd ~/Projects/ForInsighter/backend
+docker compose up -d
+# OR: redis-server , to start the redis with Docker
+
+# Terminal 2 - Backend API
+cd ~/Projects/ForInsighter/backend
+source venv/bin/activate
 uvicorn main:app --reload --port 8000
 
+# Terminal 3 - Celery Worker
+cd ~/Projects/ForInsighter/backend
+source venv/bin/activate
+celery -A tasks.celery_tasks.celery_app worker --loglevel=info
+
+# Terminal 4 - Frontend
+cd ~/Projects/ForInsighter
+npm run dev
+
+# Frontend:  http://localhost:8080
+# Backend:   http://localhost:8000/api/health
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#HOW TO PUSH NEW CHANGES TO REPO :
+git status
+git add .
+git commit -m "This is a commit"
+git push origin main
